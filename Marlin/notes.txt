@@ -1,0 +1,1 @@
+Green signifies HE1 (heater output), E1 (extruder stepper) and TH2 (thermistor).
