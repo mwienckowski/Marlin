@@ -1,0 +1,68 @@
+echo:Marlin bugfix-2.0.x
+echo: Last Updated: 2020-02-23 | Author: (thisiskeithb, Tevo Tornado V2)
+echo:Compiled: Mar  3 2020
+echo: Free Memory: 2499  PlannerBufferBytes: 1472
+echo:SD card ok
+echo:V76 stored settings retrieved (739 bytes; crc 13901)
+echo:  G21    ; Units in mm (mm)
+echo:  M149 C ; Units in Celsius
+echo:; Filament settings: Disabled
+echo:  M200 D1.75
+echo:  M200 T1 D1.75
+echo:  M200 D0
+echo:; Steps per unit:
+echo: M92 X79.76 Y79.76 Z399.29 E400.00
+echo:; Maximum feedrates (units/s):
+echo:  M203 X250.00 Y250.00 Z30.00 E55.00
+echo:; Maximum Acceleration (units/s2):
+echo:  M201 X2000.00 Y2000.00 Z120.00 E10000.00
+echo:; Acceleration (units/s2): P<print_accel> R<retract_accel> T<travel_accel>
+echo:  M204 P1000.00 R10000.00 T1500.00
+echo:; Advanced: B<min_segment_time_us> S<min_feedrate> T<min_travel_feedrate> J<junc_dev>
+echo:  M205 B20000.00 S0.00 T0.00 J0.03
+echo:; Home offset:
+echo:  M206 X-7.00 Y-50.00 Z0.00
+echo:; Hotend offsets:
+echo:  M218 T1 X-20.20 Y0.35 Z-0.400
+echo:; Auto Bed Leveling:
+echo:  M420 S0 Z0.00
+echo:  G29 W I0 J0 Z-0.66790
+echo:  G29 W I1 J0 Z-0.20959
+echo:  G29 W I2 J0 Z0.12851
+echo:  G29 W I3 J0 Z0.40150
+echo:  G29 W I4 J0 Z0.07592
+echo:  G29 W I0 J1 Z-0.75305
+echo:  G29 W I1 J1 Z-0.22462
+echo:  G29 W I2 J1 Z0.11348
+echo:  G29 W I3 J1 Z0.41652
+echo:  G29 W I4 J1 Z0.02082
+echo:  G29 W I0 J2 Z-0.83320
+echo:  G29 W I1 J2 Z-0.29474
+echo:  G29 W I2 J2 Z-0.01675
+echo:  G29 W I3 J2 Z0.34890
+echo:  G29 W I4 J2 Z-0.03428
+echo:  G29 W I0 J3 Z-0.92085
+echo:  G29 W I1 J3 Z-0.39492
+echo:  G29 W I2 J3 Z-0.02927
+echo:  G29 W I3 J3 Z0.27878
+echo:  G29 W I4 J3 Z-0.06934
+echo:  G29 W I0 J4 Z-1.04106
+echo:  G29 W I1 J4 Z-0.49259
+echo:  G29 W I2 J4 Z-0.16200
+echo:  G29 W I3 J4 Z0.17610
+echo:  G29 W I4 J4 Z-0.15700
+echo:; Material heatup parameters:
+echo:  M145 S0 H200 B60 F0
+echo:  M145 S1 H240 B100 F0
+echo:; PID settings:
+echo:  M301 P20.37 I1.50 D69.26
+echo:  M301 P20.37 I1.50 D69.26
+echo:  M304 P128.82 I16.91 D245.36
+echo:; Z-Probe Offset (mm):
+echo:  M851 X-39.00 Y45.00 Z-1.88
+echo:; Filament load/unload lengths:
+echo:  M603 T0 L0.00 U500.00
+echo:  M603 T1 L0.00 U500.00
+echo:; Tool-changing:
+echo: Z2.00
+echo:SD card ok
