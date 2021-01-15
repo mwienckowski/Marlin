@@ -129,6 +129,13 @@
   #define E1_CS_PIN                        P1_08
 #endif
 
+#define E2_STEP_PIN        P0_01
+#define E2_DIR_PIN         P0_00
+#define E2_ENABLE_PIN      P0_10
+#ifndef E2_CS_PIN
+  #define E2_CS_PIN        P1_01
+#endif		
+
 //
 // Software SPI pins for TMC2130 stepper drivers
 //
