@@ -16,7 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -34,7 +34,6 @@
 
 #include "encoder_i2c.h"
 
-#include "../module/temperature.h"
 #include "../module/stepper.h"
 #include "../gcode/parser.h"
 
@@ -85,7 +84,7 @@ void I2CPositionEncoder::update() {
      * the encoder would be re-enabled.
      */
 
-    /*
+    #if 0
       // If the magnetic strength has been good for a certain time, start trusting the module again
 
       if (millis() - lastErrorTime > I2CPE_TIME_TRUSTED) {
@@ -107,11 +106,11 @@ void I2CPositionEncoder::update() {
           SERIAL_ECHOLNPAIR("New zero-offset of ", zeroOffset);
           SERIAL_ECHOPAIR("New position reads as ", get_position());
           SERIAL_CHAR('(');
-          SERIAL_ECHO(mm_from_count(get_position()));
+          SERIAL_DECIMAL(mm_from_count(get_position()));
           SERIAL_ECHOLNPGM(")");
         #endif
       }
-    */
+    #endif
     return;
   }
 
@@ -305,7 +304,7 @@ int32_t I2CPositionEncoder::get_raw_count() {
 
   encoderCount.val = 0x00;
 
-  if (Wire.requestFrom((int)i2cAddress, 3) != 3) {
+  if (Wire.requestFrom(I2C_ADDRESS(i2cAddress), uint8_t(3)) != 3) {
     //houston, we have a problem...
     H = I2CPE_MAG_SIG_NF;
     return 0;
@@ -332,7 +331,7 @@ bool I2CPositionEncoder::test_axis() {
 
   const float startPosition = soft_endstop.min[encoderAxis] + 10,
               endPosition = soft_endstop.max[encoderAxis] - 10;
-  const feedRate_t fr_mm_s = FLOOR(MMM_TO_MMS((encoderAxis == Z_AXIS) ? HOMING_FEEDRATE_Z : HOMING_FEEDRATE_XY));
+  const feedRate_t fr_mm_s = FLOOR(homing_feedrate(encoderAxis));
 
   ec = false;
 
@@ -382,7 +381,7 @@ void I2CPositionEncoder::calibrate_steps_mm(const uint8_t iter) {
 
   int32_t startCount, stopCount;
 
-  const feedRate_t fr_mm_s = MMM_TO_MMS((encoderAxis == Z_AXIS) ? HOMING_FEEDRATE_Z : HOMING_FEEDRATE_XY);
+  const feedRate_t fr_mm_s = homing_feedrate(encoderAxis);
 
   bool oldec = ec;
   ec = false;
@@ -459,9 +458,7 @@ void I2CPositionEncoder::reset() {
   Wire.write(I2CPE_RESET_COUNT);
   Wire.endTransmission();
 
-  #if ENABLED(I2CPE_ERR_ROLLING_AVERAGE)
-    ZERO(err);
-  #endif
+  TERN_(I2CPE_ERR_ROLLING_AVERAGE, ZERO(err));
 }
 
 
@@ -746,7 +743,7 @@ void I2CPositionEncodersMgr::report_module_firmware(const uint8_t address) {
   Wire.endTransmission();
 
   // Read value
-  if (Wire.requestFrom((int)address, 32)) {
+  if (Wire.requestFrom(I2C_ADDRESS(address), uint8_t(32))) {
     char c;
     while (Wire.available() > 0 && (c = (char)Wire.read()) > 0)
       SERIAL_ECHO(c);
@@ -818,7 +815,6 @@ int8_t I2CPositionEncodersMgr::parse() {
  *    Y       Report on Y axis encoder, if present.
  *    Z       Report on Z axis encoder, if present.
  *    E       Report on E axis encoder, if present.
- *
  */
 void I2CPositionEncodersMgr::M860() {
   if (parse()) return;
@@ -848,7 +844,6 @@ void I2CPositionEncodersMgr::M860() {
  *    Y       Report on Y axis encoder, if present.
  *    Z       Report on Z axis encoder, if present.
  *    E       Report on E axis encoder, if present.
- *
  */
 void I2CPositionEncodersMgr::M861() {
   if (parse()) return;
@@ -877,7 +872,6 @@ void I2CPositionEncodersMgr::M861() {
  *    Y       Report on Y axis encoder, if present.
  *    Z       Report on Z axis encoder, if present.
  *    E       Report on E axis encoder, if present.
- *
  */
 void I2CPositionEncodersMgr::M862() {
   if (parse()) return;
@@ -907,7 +901,6 @@ void I2CPositionEncodersMgr::M862() {
  *    Y       Report on Y axis encoder, if present.
  *    Z       Report on Z axis encoder, if present.
  *    E       Report on E axis encoder, if present.
- *
  */
 void I2CPositionEncodersMgr::M863() {
   if (parse()) return;
