@@ -21,6 +21,8 @@
  */
 #pragma once
 
+#include "../core/boards.h"
+
 /**
  * File: pins/pins.h
  *
